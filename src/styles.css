@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.mdl-card {
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;
+	overflow-x:initial;
+}
+
+.mdl-card-title-image {
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -1,3 +1,107 @@
-<h1>
-  {{title}}
-</h1>
+<div class="demo-container" mdl-shadow="2">
+	<mdl-layout mdl-layout-fixed-header mdl-layout-header-seamed>
+		<mdl-layout-header>
+			<mdl-layout-header-row>
+				<mdl-layout-title>Image Gallery</mdl-layout-title>
+				<mdl-layout-spacer></mdl-layout-spacer>
+			</mdl-layout-header-row>
+		</mdl-layout-header>
+		<mdl-layout-drawer>
+			<mdl-layout-title>Image Gallery</mdl-layout-title>
+			<nav class="mdl-navigation">
+				<div class="mdl-navigation__link">
+					<mdl-switch [(ngModel)]="skipTrashed" mdl-ripple>Skip Trashed</mdl-switch>
+				</div>
+			</nav>
+		</mdl-layout-drawer>
+		<mdl-layout-content>
+
+			<mdl-card mdl-shadow="2">
+				<mdl-card-title>
+					<img src="https://placehold.it/350x150" id="image" class="mdl-card-title-image">
+				</mdl-card-title>
+
+				<mdl-card-supporting-text>
+					Image {{image?.id}} of {{image?.totalImages}}
+				</mdl-card-supporting-text>
+
+				<mdl-card-actions mdl-card-border>
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto">
+							<button mdl-button mdl-button-type="icon" mdl-ripple
+								(click)="prevImage()">
+								<mdl-icon>keyboard_arrow_left</mdl-icon>
+							</button>
+						</div>
+
+						<!-- love -->
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating === 'love'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
+								(click)="rateImage('unrated')">
+								<mdl-icon>favorite</mdl-icon>
+							</button>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating !== 'love'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple
+								(click)="rateImage('love')">
+								<mdl-icon>favorite</mdl-icon>
+							</button>
+						</div><!-- /love -->
+
+						<!-- trash -->
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating === 'trash'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
+								(click)="rateImage('unrated')">
+								<mdl-icon>delete</mdl-icon>
+							</button>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating !== 'trash'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple
+								(click)="rateImage('trash')">
+								<mdl-icon>delete</mdl-icon>
+							</button>
+						</div><!-- /trash -->
+
+						<!-- react -->
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating === 'react'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
+								(click)="rateImage('unrated')">
+								<mdl-icon>face</mdl-icon>
+							</button>
+						</div>
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
+							*ngIf="image?.rating !== 'react'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple
+								(click)="rateImage('react')">
+								<mdl-icon>face</mdl-icon>
+							</button>
+						</div><!-- /react -->
+
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto">
+							<button mdl-button mdl-button-type="icon" mdl-ripple
+								(click)="nextImage()">
+								<mdl-icon>keyboard_arrow_right</mdl-icon>
+							</button>
+						</div>
+					</div>
+
+				</mdl-card-actions>
+
+				<mdl-card-menu>
+					<button mdl-button mdl-button-type="icon" mdl-ripple *ngIf="!fullscreenMode" (click)="toggleFullscreenMode(true)">
+						<mdl-icon>fullscreen</mdl-icon>
+					</button>
+					<button mdl-button mdl-button-type="icon" mdl-ripple *ngIf="fullscreenMode" (click)="toggleFullscreenMode(false)">
+						<mdl-icon>fullscreen_exit</mdl-icon>
+					</button>
+				</mdl-card-menu>
+			</mdl-card>
+
+		</mdl-layout-content>
+	</mdl-layout>
+</div>
