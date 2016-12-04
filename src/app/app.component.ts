@@ -31,10 +31,10 @@ export class AppComponent implements OnInit{
 				this.resize();
 			});
 
-		Observable.fromEvent(document, 'keydown')
+		Observable.fromEvent(document, 'keyup')
 		.debounceTime(200)
 		.subscribe( event => {
-			this.handleKeydown(event);
+			this.handleKeyup(event);
 		});
 
 	}
@@ -50,15 +50,23 @@ export class AppComponent implements OnInit{
 			this.resize();
 	}
 
-	handleKeydown(event) {
-		if (event.key === 'ArrowRight') {
+	handleKeyup(event) {
+		if ((event.key === 'ArrowRight' && !this.fullscreenMode)
+			|| (event.key === 'ArrowRight' && (event.ctrlKey || event.shiftKey) && this.fullscreenMode)) {
 			this.nextImage();
-		} else if (event.key === 'ArrowLeft') {
+
+		} else if ((event.key === 'ArrowLeft' && !this.fullscreenMode)
+			|| (event.key === 'ArrowLeft' && (event.ctrlKey || event.shiftKey) && this.fullscreenMode)) {
 			this.prevImage();
-		} else if (event.key === 'ArrowUp') {
+
+		} else if ((event.key === 'ArrowUp' && !this.fullscreenMode)
+			|| (event.key === 'ArrowUp' && (event.ctrlKey || event.shiftKey) && this.fullscreenMode)) {
 			this.toggleRating('love');
-		} else if (event.key === 'ArrowDown') {
+
+		} else if ((event.key === 'ArrowDown' && !this.fullscreenMode)
+			|| (event.key === 'ArrowDown' && (event.ctrlKey || event.shiftKey) && this.fullscreenMode)) {
 			this.toggleRating('trash');
+
 		} else if (event.key === 'r') {
 			this.toggleRating('react');
 		} else if (event.key === 'f') {
@@ -125,12 +133,16 @@ export class AppComponent implements OnInit{
 		}
 	}
 
+	jumpToImage(index: number) {
+		if (index) {
+			this.index = index;
+			this.imageService.getImage(this.index)
+				.subscribe( (image:RatedImage) => this.handleImageChange(image));
+		}
+	}
+
 	toggleFullscreenMode(fullscreen:boolean) {
 		this.fullscreenMode = fullscreen;
 		this.resize();
-	}
-
-	onKeypress(event) {
-		console.log(event);
 	}
 }

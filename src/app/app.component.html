@@ -12,6 +12,25 @@
 				<div class="mdl-navigation__link">
 					<mdl-switch [(ngModel)]="skipTrashed" mdl-ripple>Skip Trashed</mdl-switch>
 				</div>
+				<div class="mdl-navigation__link">
+					<div class="mdl-grid">
+						<div class="mdl-cell mdl-cell--8-col">
+							<mdl-textfield type="text"
+								label="Jump to image..."
+								type="number"
+								error-msg="Input is not a number!"
+								#jumpToInput
+								floating-label
+								(keyup.enter)="jumpToImage(jumpToInput.value)"></mdl-textfield>
+						</div>
+
+						<div class="mdl-cell mdl-cell--4-col" style="padding-top:20px">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="jumpToImage(jumpToInput.value)">
+								<mdl-icon>send</mdl-icon>
+							</button>
+						</div>
+					</div>
+				</div>
 			</nav>
 		</mdl-layout-drawer>
 		<mdl-layout-content>
@@ -28,63 +47,52 @@
 				<mdl-card-actions mdl-card-border>
 					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--1-col" style="margin:auto">
-							<button mdl-button mdl-button-type="icon" mdl-ripple
-								(click)="prevImage()">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="prevImage()">
 								<mdl-icon>keyboard_arrow_left</mdl-icon>
 							</button>
 						</div>
 
 						<!-- love -->
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating === 'love'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
-								(click)="rateImage('unrated')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating === 'love'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent" (click)="rateImage('unrated')">
 								<mdl-icon>favorite</mdl-icon>
 							</button>
 						</div>
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating !== 'love'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple
-								(click)="rateImage('love')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating !== 'love'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="rateImage('love')">
 								<mdl-icon>favorite</mdl-icon>
 							</button>
-						</div><!-- /love -->
+						</div>
+						<!-- /love -->
 
 						<!-- trash -->
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating === 'trash'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
-								(click)="rateImage('unrated')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating === 'trash'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent" (click)="rateImage('unrated')">
 								<mdl-icon>delete</mdl-icon>
 							</button>
 						</div>
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating !== 'trash'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple
-								(click)="rateImage('trash')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating !== 'trash'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="rateImage('trash')">
 								<mdl-icon>delete</mdl-icon>
 							</button>
-						</div><!-- /trash -->
+						</div>
+						<!-- /trash -->
 
 						<!-- react -->
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating === 'react'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent"
-								(click)="rateImage('unrated')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating === 'react'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple mdl-colored="accent" (click)="rateImage('unrated')">
 								<mdl-icon>face</mdl-icon>
 							</button>
 						</div>
-						<div class="mdl-cell mdl-cell--1-col" style="margin:auto"
-							*ngIf="image?.rating !== 'react'">
-							<button mdl-button mdl-button-type="icon" mdl-ripple
-								(click)="rateImage('react')">
+						<div class="mdl-cell mdl-cell--1-col" style="margin:auto" *ngIf="image?.rating !== 'react'">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="rateImage('react')">
 								<mdl-icon>face</mdl-icon>
 							</button>
-						</div><!-- /react -->
+						</div>
+						<!-- /react -->
 
 						<div class="mdl-cell mdl-cell--1-col" style="margin:auto">
-							<button mdl-button mdl-button-type="icon" mdl-ripple
-								(click)="nextImage()">
+							<button mdl-button mdl-button-type="icon" mdl-ripple (click)="nextImage()">
 								<mdl-icon>keyboard_arrow_right</mdl-icon>
 							</button>
 						</div>
