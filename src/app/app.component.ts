@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 
+import { MdlSnackbarService } from 'angular2-mdl';
+
 import { Observable } from 'rxjs/Rx';
 import { ImageService } from './image.service';
 import { RatedImage } from './rated-image.class';
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit{
 
 	constructor(
 		private el:ElementRef,
-		private imageService:ImageService) { }
+		private imageService:ImageService,
+		private mdlSnackbarService: MdlSnackbarService) { }
 
 	ngOnInit() {
 		this.imageService.getImage(this.index)
@@ -101,6 +104,7 @@ export class AppComponent implements OnInit{
 	}
 
 	rateImage(rating:string) {
+		this.toast(`${rating}ed ${this.image.id}`);
 		this.imageService.rateImage(this.index, rating)
 			.subscribe( (image:RatedImage) => this.handleImageChange(image));
 	}
@@ -144,5 +148,9 @@ export class AppComponent implements OnInit{
 	toggleFullscreenMode(fullscreen:boolean) {
 		this.fullscreenMode = fullscreen;
 		this.resize();
+	}
+
+	toast(message:string) {
+		this.mdlSnackbarService.showToast(message);
 	}
 }
